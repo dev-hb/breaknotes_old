@@ -3,7 +3,16 @@
 if(isset($_POST['addlink'])){
     if($_POST['title']!="" || $_POST['link']!=""){
         $ispublic = isset($_POST['vis'])?1:0;
-        $conn->query("insert into links (label_link, ref_link, comment, id_user,visibility_link) values ('{$_POST['title']}', '{$_POST['link']}', '{$_POST['desc']}', $id_user, $ispublic)");
+        $title = str_clean($_POST['title']);
+        $link = str_clean($_POST['link']);
+        $desc = str_clean($_POST['desc']);
+        if(filter_var($link, FILTER_VALIDATE_URL)){
+            $conn->query("insert into links (label_link, ref_link, comment, id_user,visibility_link) values ('$title', '$link', '$desc', $id_user, $ispublic)");
+        }else{
+            echo "<script>setTimeout(function() {
+              alert('Please insert a valid URL');
+            }, 100)</script>";
+        }
     }
 }
 ?>
@@ -89,7 +98,7 @@ if(isset($_GET['dellink'])){
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">My Special Links <a href="#" class="pull-right" data-toggle="modal" data-target="#new_link"><i class='fa fa-plus'></i></a></h4>
-                                <p class="category">Total of links <b><?php echo $conn->query("SELECT count(*) as nb from links where id_user=$id_user")->fetch_array()['nb'];?></b></p>
+                                <p class="category">Total of links <b><?php echo $conn->query("SELECT count(*) as nb from links where id_user=$id_user and is_todo=0")->fetch_array()['nb'];?></b></p>
                             </div>
                             <div class="content table-responsive table-full-width data-links">
                                 <table class="table table-hover table-striped">
@@ -101,7 +110,7 @@ if(isset($_GET['dellink'])){
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $res = $conn->query("SELECT * from links where id_user=$id_user order by id_link desc");
+                                        $res = $conn->query("SELECT * from links where id_user=$id_user and is_todo=0 order by id_link desc");
                                         while($row = $res->fetch_array()){
                                             $visibility=$row['visibility_link']==0?"lock":"globe";
                                             echo "<tr>

@@ -40,16 +40,16 @@ if(isset($_GET['logout'])){
     <meta name="viewport" content="width=device-width" />
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-
     <link href="assets/css/animate.min.css" rel="stylesheet"/>
-
     <link href="assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
-
     <link href="assets/css/demo.css" rel="stylesheet" />
 
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <!-- Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
 <!--  Prefered style  -->
 <style type="text/css">
 .linknotify{
@@ -123,6 +123,12 @@ if(isset($_GET['seen'])){
                         <p>My Links</p>
                     </a>
                 </li>
+                <li id="page_notes">
+                    <a href="notes.php">
+                        <i class="pe-7s-note"></i>
+                        <p>My ToDo</p>
+                    </a>
+                </li>
                 <li class="active-pro">
                     <a href="?logout=true">
                         <i class="pe-7s-door-lock"></i>
@@ -133,15 +139,29 @@ if(isset($_GET['seen'])){
     	</div>
         <div class="execs"></div>
     </div>
-
+    <style>
+        .expand_sidebar{
+            display: none;
+        }
+        @media screen and (max-width: 700px) {
+            .expand_sidebar{
+                display: inline;
+            }
+        }
+    </style>
     <div class="main-panel">
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
-                
+                <button class="expand_sidebar" style="border: 0;border-radius: 0;background-color: transparent;margin-top: 15px; transform: scale(1.03)">
+                    <i class="fa fa-bars"></i>
+                </button>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
                             <a href="public.php"><i class="fa fa-globe"></i> Public Links</a>
+                        </li>
+                        <li>
+                            <a href="public_todos.php"><i class="fa fa-globe"></i> ToDos</a>
                         </li>
                     </ul>
 

@@ -1,5 +1,14 @@
 <?php
 include("config.php");
+
+if(isset($_COOKIE['breaknoter'])){
+    if($_COOKIE['breaknoter'] > 0){
+        $_SESSION['breaknotes_id'] = $_COOKIE['breaknoter'];
+        header("location: index.php");
+        exit;
+    }
+}
+
 if(isset($_SESSION['breaknotes_id'])){
     header("location: index.php");
     exit;
@@ -20,7 +29,7 @@ if(isset($_POST['dologin'])){
                 $res = $conn->query("select * from users where pwd_user='$pwd' and (username='{$_POST['username']}' or email_user='{$_POST['username']}')")->fetch_array();   
                 if($res){
                     $_SESSION['breaknotes_id'] = $res['id_user'];
-                    $msg = "<div class='alert alert-success'>You are logged in : {$res['id_user']}</div>";
+                    setcookie("breaknoter", $res['id_user'], time()+3600*60*24, "/");
                     header("location: index.php");
                     exit;
                 }else{

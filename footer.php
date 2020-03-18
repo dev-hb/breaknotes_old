@@ -47,53 +47,11 @@
 
 	<script type="text/javascript">
     	$(document).ready(function(){
-
-        	demo.initChartist();
-
+    	    $('.expand_sidebar').click(function(){
+    	        var nav = document.getElementsByClassName('sidebar')[0].style;
+    	        if(nav.marginRight == "255px") nav.marginRight = "0px";
+    	        else nav.marginRight = "255px";
+            })
     	});
 	</script>
-    
-    <script type="text/javascript">
-        function updateScene(){
-            $(".notypanel").load("header.php .notypanel>*");
-        }
-        function inviteCoffee(){
-            $(".execs").load("header.php?invite=coffee .invitecoffee");
-            updateScene();
-            var msg = "You have invited the members to drink Coffee";
-            $.notify({
-                icon: "pe-7s-coffee",
-                message: msg
-
-            },{
-                type: type[3],
-                timer: 3000
-            });
-        }
-        function confirmCoffee(idSender){
-            if(confirm("Do you confirm this invitation?")){
-                $(".execs").load("header.php?confirm=coffee .confirmcoffee");
-                updateScene();
-                var msg = "Your request has been sent!";
-                $.notify({
-                    icon: "pe-7s-coffee",
-                    message: msg
-
-                },{
-                    type: type[3],
-                    timer: 3000
-                });   
-            }
-        }
-        function setSeen(){
-            $(".execs").load("header.php?seen=true .setseen");
-            updateScene();
-        }
-        // fix
-        $(document).ready(function(){
-            setInterval(function(){
-                $(".nbnoty").load("header.php .nbnoty>*");  
-            }, 50000); 
-        })
-    </script>
 </html>

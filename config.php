@@ -16,6 +16,8 @@ function logout(){
     // destroy the session and redirect to login pa
     session_unset("breaknotes_id");
     session_destroy();
+    unset($_COOKIE['breaknoter']);
+    setcookie("breaknoter", null, time()-3600, "/");
     header("location: login.php");
     exit;
 }

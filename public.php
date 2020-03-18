@@ -1,6 +1,6 @@
 <?php include("header.php");
 
-$nblinks = $conn->query("SELECT count(*) as nb from links where visibility_link=1")->fetch_array()['nb'];
+$nblinks = $conn->query("SELECT count(*) as nb from links where visibility_link=1 and is_todo=0")->fetch_array()['nb'];
 
 ?>
 
@@ -55,7 +55,7 @@ if(isset($_GET['dislike'])){
                                             return false;
                                         }
 
-                                        $res = $conn->query("SELECT * from links natural join users where visibility_link=1 order by id_link desc");
+                                        $res = $conn->query("SELECT * from links natural join users where visibility_link=1 and is_todo=0 order by id_link desc");
                                         while($row = $res->fetch_array()){
                                             $likes = $rs = $conn->query("select * from users natural join likes_of_links where id_link={$row['id_link']}");
                                             $nblikes = mysqli_num_rows($likes);
@@ -70,7 +70,7 @@ if(isset($_GET['dislike'])){
                                             </tr>";
                                         }
                                         if(mysqli_num_rows($res)<=0){
-                                            echo "<tr><td align=center colspan=3><center>No public links found</center></td></tr>";
+                                            echo "<tr><td align=center colspan=4><center>No public links found</center></td></tr>";
                                         }
                                         ?>
                                     </tbody>
